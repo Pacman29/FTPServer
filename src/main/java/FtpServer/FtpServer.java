@@ -26,20 +26,8 @@ public class FtpServer {
                 System.out.println();
                 executorService.submit(() -> {
                     try {
-                        // Конвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщения.
-                        DataInputStream in = new DataInputStream(socket.getInputStream());
-                        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
-                        String line = null;
-                        while (true) {
-                            line = in.readUTF(); // ожидаем пока клиент пришлет строку текста.
-                            System.out.println("The dumb client just sent me this line : " + line);
-                            System.out.println("I'm sending it back...");
-                            out.writeUTF(line); // отсылаем клиенту обратно ту самую строку текста.
-                            out.flush(); // заставляем поток закончить передачу данных.
-                            System.out.println("Waiting for the next line...");
-                            System.out.println();
-                        }
+                        IncommingMessageProcessorImpl incommingMessageProcessor = new IncommingMessageProcessor(new Client(socket));
+                        incommingMessageProcessor.start();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
