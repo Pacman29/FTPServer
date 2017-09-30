@@ -1,31 +1,29 @@
 package FtpServer.Commands;
 
-
-import FtpServer.Client;
 import FtpServer.ClientImpl;
-import FtpServer.Codes.Code331;
+import FtpServer.Codes.Code257;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-// TODO: сделать авторизацию юзера, пока заглушка
-public class UserCommand implements CommandImpl{
-
+public class PwdCommand implements CommandImpl{
     private ClientImpl client;
 
-    private String log = "UserCommand not execute";
-    private Pattern pattern = Pattern.compile("^\\s*USER\\s+\\w+\\s*$",
-            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
-
-    public UserCommand(ClientImpl client) {
+    public PwdCommand(ClientImpl client) {
         this.client = client;
     }
+
+    private String log = "PwdCommand not execute";
+    private Pattern pattern = Pattern.compile("^\\s*PWD\\s*$",
+            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+
 
     @Override
     public void execute() {
         try {
-            client.sendLine(new Code331().getAll());
-            this.log = "UserCommand execute";
+            String response = String.format(new Code257().getAll(),client.getUserWorkingDirectory());
+            client.sendLine(response);
+            this.log = "PwdCommand execute";
         } catch (IOException e) {
             // TODO: обработать ошибку в случае не удачи отправки сообщения клиенту
             e.printStackTrace();
@@ -34,11 +32,11 @@ public class UserCommand implements CommandImpl{
 
     @Override
     public String getLogInfo() {
-        return log;
+        return null;
     }
 
     @Override
     public Pattern getCommandPattern() {
-        return pattern;
+        return null;
     }
 }

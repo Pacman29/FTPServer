@@ -10,4 +10,9 @@ public class Code500 implements CodeImpl {
     public String discription() {
         return "Syntax error, command unrecognized. This may include errors such as command line too long.";
     }
+
+    @Override
+    public String getAll() {
+        return code()+" "+discription()+"\n";
+    }
 }

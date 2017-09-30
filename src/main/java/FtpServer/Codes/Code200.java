@@ -10,4 +10,9 @@ public class Code200 implements CodeImpl{
     public String discription() {
         return "Command okay.";
     }
+
+    @Override
+    public String getAll() {
+        return code()+" "+discription()+"\n";
+    }
 }

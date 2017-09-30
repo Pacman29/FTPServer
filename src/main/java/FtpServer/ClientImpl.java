@@ -14,4 +14,8 @@ public interface ClientImpl {
     public String waitLine() throws IOException;
 
     public void closeConnection() throws IOException;
+
+    public String getUserWorkingDirectory();
+
+    public void setUserWorkingDirectory(String userWorkingDirectory);
 }

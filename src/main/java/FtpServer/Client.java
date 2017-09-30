@@ -7,7 +7,8 @@ import java.net.Socket;
 
 public class Client implements ClientImpl {
     private Socket socket;
-    private String userRootCatalog;
+    private String userRootDirectory;
+    private String userWorkingDirectory;
 
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
@@ -45,5 +46,13 @@ public class Client implements ClientImpl {
         this.socket.close();
     }
 
+    @Override
+    public String getUserWorkingDirectory() {
+        return userWorkingDirectory;
+    }
 
+    @Override
+    public void setUserWorkingDirectory(String userWorkingDirectory) {
+        this.userWorkingDirectory = userWorkingDirectory;
+    }
 }

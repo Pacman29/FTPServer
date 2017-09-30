@@ -10,4 +10,9 @@ public class Code230 implements CodeImpl{
     public String discription() {
         return "User logged in, proceed.";
     }
+
+    @Override
+    public String getAll() {
+        return code()+" "+discription()+"\n";
+    }
 }
