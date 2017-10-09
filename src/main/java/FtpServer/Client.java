@@ -3,10 +3,11 @@ package FtpServer;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
+import java.net.*;
 
 public class Client implements ClientImpl {
     private Socket socket;
+    private Socket dataSocket = null;
     private String userRootDirectory;
     private String userWorkingDirectory;
 
@@ -54,5 +55,25 @@ public class Client implements ClientImpl {
     @Override
     public void setUserWorkingDirectory(String userWorkingDirectory) {
         this.userWorkingDirectory = userWorkingDirectory;
+    }
+
+    @Override
+    public void openDataSocket(String host, Integer port) throws IOException, UnknownHostException {
+        if(host == null || port == null){
+            //TODO: ошибка в случае если данные null
+        }
+
+        if(dataSocket != null && dataSocket.isBound()) {
+            this.closeDataSocket();
+        }
+
+        InetAddress inetAddress = InetAddress.getByName(host);
+        this.dataSocket = new Socket(host,port);
+    }
+
+    @Override
+    public void closeDataSocket() throws IOException {
+        dataSocket.close();
+        this.dataSocket = null;
     }
 }

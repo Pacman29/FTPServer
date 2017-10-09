@@ -9,9 +9,11 @@ import java.util.regex.Pattern;
 // TODO: сделать авторизацию юзера, пока заглушка
 public class PassCommand implements CommandImpl{
     private ClientImpl client;
+    private String password;
 
-    public PassCommand(ClientImpl client) {
+    public PassCommand(ClientImpl client, String password) {
         this.client = client;
+        this.password = password;
     }
 
     private String log = "PassCommand not execute";

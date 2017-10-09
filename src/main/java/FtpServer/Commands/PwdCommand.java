@@ -32,11 +32,11 @@ public class PwdCommand implements CommandImpl{
 
     @Override
     public String getLogInfo() {
-        return null;
+        return log;
     }
 
     @Override
     public Pattern getCommandPattern() {
-        return null;
+        return pattern;
     }
 }

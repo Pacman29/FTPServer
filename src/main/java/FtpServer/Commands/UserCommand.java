@@ -12,13 +12,15 @@ import java.util.regex.Pattern;
 public class UserCommand implements CommandImpl{
 
     private ClientImpl client;
+    private String username;
 
     private String log = "UserCommand not execute";
     private Pattern pattern = Pattern.compile("^\\s*USER\\s+\\w+\\s*$",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
-    public UserCommand(ClientImpl client) {
+    public UserCommand(ClientImpl client, String username) {
         this.client = client;
+        this.username = username;
     }
 
     @Override

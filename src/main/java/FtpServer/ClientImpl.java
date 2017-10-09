@@ -18,4 +18,8 @@ public interface ClientImpl {
     public String getUserWorkingDirectory();
 
     public void setUserWorkingDirectory(String userWorkingDirectory);
+
+    void openDataSocket(String host, Integer port) throws IOException;
+
+    public void closeDataSocket() throws IOException;
 }
