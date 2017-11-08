@@ -1,17 +1,17 @@
 package FtpServer.Commands;
 
-import FtpServer.ClientImpl;
+import FtpServer.IClient;
 import FtpServer.Codes.Code230;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
 
 // TODO: сделать авторизацию юзера, пока заглушка
-public class PassCommand implements CommandImpl{
-    private ClientImpl client;
+public class PassCommand implements ICommand {
+    private IClient client;
     private String password;
 
-    public PassCommand(ClientImpl client, String password) {
+    public PassCommand(IClient client, String password) {
         this.client = client;
         this.password = password;
     }

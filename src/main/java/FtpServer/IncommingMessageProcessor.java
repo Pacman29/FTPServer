@@ -3,9 +3,9 @@ package FtpServer;
 import java.io.IOException;
 
 public class IncommingMessageProcessor implements IncommingMessageProcessorImpl {
-    private ClientImpl client;
+    private FtpServer.IClient client;
 
-    public IncommingMessageProcessor(ClientImpl client) {
+    public IncommingMessageProcessor(FtpServer.IClient client) {
         this.client = client;
     }
 

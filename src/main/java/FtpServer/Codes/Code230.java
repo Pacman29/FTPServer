@@ -1,6 +1,6 @@
 package FtpServer.Codes;
 
-public class Code230 implements CodeImpl{
+public class Code230 extends BaseCode {
     @Override
     public String code() {
         return "230";
@@ -11,8 +11,4 @@ public class Code230 implements CodeImpl{
         return "User logged in, proceed.";
     }
 
-    @Override
-    public String getAll() {
-        return code()+" "+discription()+"\n";
-    }
 }

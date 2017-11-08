@@ -1,17 +1,17 @@
 package FtpServer.Commands;
 
-import FtpServer.ClientImpl;
+import FtpServer.IClient;
 import FtpServer.Codes.Code200;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PortCommand implements CommandImpl{
-    private ClientImpl client;
+public class PortCommand implements ICommand {
+    private IClient client;
     private String address;
 
-    public PortCommand(ClientImpl client, String address) {
+    public PortCommand(IClient client, String address) {
         this.client = client;
         this.address = address;
     }

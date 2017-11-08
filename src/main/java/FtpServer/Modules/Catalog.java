@@ -21,11 +21,11 @@ public class Catalog {
         return stringBuilder.toString();
     }
 
-    public static boolean isExist(String dir) throws Exception {
-        File folder = new File(dir);
-        if(folder.isFile()){
-            throw new Exception("Is not a directory");
-        }
-        
+    public static boolean mkdir(String dir) throws Exception {
+        return new File(dir).mkdir();
+    }
+
+    public static boolean rmdir(String dir) throws Exception {
+        return new File(dir).delete();
     }
 }

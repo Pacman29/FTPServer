@@ -1,15 +1,15 @@
 package FtpServer.Commands;
 
-import FtpServer.ClientImpl;
+import FtpServer.IClient;
 import FtpServer.Codes.Code257;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-public class PwdCommand implements CommandImpl{
-    private ClientImpl client;
+public class PwdCommand implements ICommand {
+    private IClient client;
 
-    public PwdCommand(ClientImpl client) {
+    public PwdCommand(IClient client) {
         this.client = client;
     }
 

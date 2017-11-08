@@ -1,20 +1,20 @@
 package FtpServer.Commands;
 
-import FtpServer.ClientImpl;
+import FtpServer.IClient;
 import FtpServer.Modules.PathChecker;
 
 import java.util.regex.Pattern;
 
-public class CwdCommand implements CommandImpl {
-    private ClientImpl client;
+public class CwdCommand implements ICommand {
+    private IClient client;
     private String dir;
 
-    public CwdCommand(ClientImpl client, String dir) {
+    public CwdCommand(IClient client, String dir) {
         this.client = client;
         this.dir = dir;
     }
 
-    public CwdCommand(ClientImpl client) {
+    public CwdCommand(IClient client) {
         this.client = client;
         this.dir = "";
     }

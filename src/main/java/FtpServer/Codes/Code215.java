@@ -1,6 +1,6 @@
 package FtpServer.Codes;
 
-public class Code215 implements CodeImpl{
+public class Code215 extends BaseCode{
     @Override
     public String code() {
         return "215";
@@ -8,11 +8,6 @@ public class Code215 implements CodeImpl{
 
     @Override
     public String discription() {
-        return "UNIX system type\n";
-    }
-
-    @Override
-    public String getAll() {
-        return code()+" "+discription()+"\n";
+        return "UNIX system type";
     }
 }

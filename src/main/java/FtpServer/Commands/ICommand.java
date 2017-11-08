@@ -2,7 +2,7 @@ package FtpServer.Commands;
 
 import java.util.regex.Pattern;
 
-public interface CommandImpl {
+public interface ICommand {
     public void execute();
 
     public String getLogInfo();

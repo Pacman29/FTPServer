@@ -1,11 +1,18 @@
 package FtpServer;
 
+import FtpServer.Modules.FileSenderBinary;
+import FtpServer.Modules.FileSenderFabric;
+import FtpServer.Modules.IFileSender;
+import FtpServer.Modules.IFileSenderFabric;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.*;
 
-public class Client implements ClientImpl {
+public class Client implements IClient {
+    private FileSenderFabric.SocketType socketType;
     private Socket socket;
     private Socket dataSocket = null;
     private String userRootDirectory;
@@ -75,5 +82,24 @@ public class Client implements ClientImpl {
     public void closeDataSocket() throws IOException {
         dataSocket.close();
         this.dataSocket = null;
+    }
+
+    @Override
+    public boolean sendFile(File file) {
+        IFileSenderFabric fileSenderFabric = FileSenderFabric.getInstance();
+        IFileSender fileSender = fileSenderFabric.get(this.socketType);
+        if(fileSender.sendFile(this.dataSocket,file) == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public FileSenderFabric.SocketType getSocketType() {
+        return socketType;
+    }
+
+    public void setSocketType(FileSenderFabric.SocketType socketType) {
+        this.socketType = socketType;
     }
 }
