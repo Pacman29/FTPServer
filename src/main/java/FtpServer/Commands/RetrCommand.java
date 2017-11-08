@@ -54,14 +54,6 @@ public class RetrCommand implements ICommand {
                 //TODO: Ошибка при отправлении сообщения
             }
         }
-
-
-        try {
-            client.sendLine(response);
-        } catch (IOException e) {
-            e.printStackTrace();
-            //TODO: Ошибка при отправлении сообщения
-        }
     }
 
     @Override
