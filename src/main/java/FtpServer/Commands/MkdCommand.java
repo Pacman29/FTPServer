@@ -23,7 +23,7 @@ public class MkdCommand implements ICommand {
                 Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
     @Override
-    public void execute() {
+    public String execute() {
         PathChecker pathChecker = new PathChecker(this.dir);
         if(!pathChecker.isValid()){
             //TODO: Ошибка в случаи не валидного пути
@@ -41,12 +41,7 @@ public class MkdCommand implements ICommand {
             e.printStackTrace();
             //TODO: Ошибка при создании директории
         }
-        try {
-            client.sendLine(response);
-        } catch (IOException e) {
-            e.printStackTrace();
-            //TODO: Ошибка при отправлении сообщения
-        }
+        return response;
     }
 
     @Override

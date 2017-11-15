@@ -1,9 +1,6 @@
 package FtpServer;
 
-import FtpServer.Modules.FileSenderBinary;
-import FtpServer.Modules.FileSenderFabric;
-import FtpServer.Modules.IFileSender;
-import FtpServer.Modules.IFileSenderFabric;
+import FtpServer.Modules.DataConnection;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,7 +9,7 @@ import java.io.IOException;
 import java.net.*;
 
 public class Client implements IClient {
-    private FileSenderFabric.SocketType socketType;
+    private DataConnection.SocketType socketType;
     private Socket socket;
     private Socket dataSocket = null;
     private String userRootDirectory;
@@ -21,9 +18,9 @@ public class Client implements IClient {
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
 
-    public Client(Socket socket) throws IOException {
+    public Client(Socket socket, String rootDirectory) throws IOException {
         this.socket = socket;
-
+        this.userRootDirectory = rootDirectory;
         this.inputStream = new DataInputStream(socket.getInputStream());
         this.outputStream = new DataOutputStream(socket.getOutputStream());
     }
@@ -86,8 +83,8 @@ public class Client implements IClient {
 
     @Override
     public boolean sendFile(File file) {
-        IFileSenderFabric fileSenderFabric = FileSenderFabric.getInstance();
-        IFileSender fileSender = fileSenderFabric.get(this.socketType);
+        DataConnection.IFileSenderFabric fileSenderFabric = DataConnection.FileSenderFabric.getInstance();
+        DataConnection.IFileSender fileSender = fileSenderFabric.get(this.socketType);
         if(fileSender.sendFile(this.dataSocket,file) == 0){
             return true;
         } else {
@@ -95,11 +92,34 @@ public class Client implements IClient {
         }
     }
 
-    public FileSenderFabric.SocketType getSocketType() {
+    public DataConnection.SocketType getSocketType() {
         return socketType;
     }
 
-    public void setSocketType(FileSenderFabric.SocketType socketType) {
+    public void setSocketType(DataConnection.SocketType socketType) {
         this.socketType = socketType;
+    }
+
+    @Override
+    public boolean saveFile(File file) {
+        DataConnection.IFileSaverFabric fileSaverFabric = DataConnection.FileSaverFabric.getInstance();
+        DataConnection.IFileSaver fileSender = fileSaverFabric.get(this.socketType);
+        if(fileSender.saveFile(this.dataSocket,file) == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public String getUserRootDirectory() {
+        return userRootDirectory;
+    }
+
+    @Override
+    public void sendLineToDataSocket(String line) throws IOException {
+        DataOutputStream outputStream = new DataOutputStream(this.dataSocket.getOutputStream());
+        outputStream.writeUTF(line);
+        outputStream.flush();
     }
 }

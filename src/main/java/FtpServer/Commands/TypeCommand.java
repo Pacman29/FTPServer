@@ -1,14 +1,10 @@
 package FtpServer.Commands;
 
-import FtpServer.Codes.Code150;
 import FtpServer.Codes.Code200;
 import FtpServer.Codes.Code501;
 import FtpServer.IClient;
-import FtpServer.Modules.FileSenderFabric;
-import FtpServer.Modules.IFileSenderFabric;
-import FtpServer.Modules.PathChecker;
+import FtpServer.Modules.DataConnection;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -26,26 +22,21 @@ public class TypeCommand implements ICommand {
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
     @Override
-    public void execute() {
+    public String execute() {
         String res;
         switch (type){
             case "A" :
-                client.setSocketType(FileSenderFabric.SocketType.ASCII);
+                client.setSocketType(DataConnection.SocketType.ASCII);
                 res = new Code200().getAll();
                 break;
             case "I" :
-                client.setSocketType(FileSenderFabric.SocketType.BINARY);
+                client.setSocketType(DataConnection.SocketType.BINARY);
                 res = new Code200().getAll();
                 break;
             default:
                 res = new Code501().getAll();
         }
-        try {
-            client.sendLine(res);
-        } catch (IOException e) {
-            e.printStackTrace();
-            // TODO: обработать ошибку в случае не удачи отправки сообщения клиенту
-        }
+        return res;
     }
 
     @Override

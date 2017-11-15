@@ -1,5 +1,6 @@
 package FtpServer.Commands;
 
+import FtpServer.Codes.Code150;
 import FtpServer.IClient;
 import FtpServer.Codes.Code250;
 import FtpServer.Modules.Catalog;
@@ -27,7 +28,7 @@ public class ListCommand implements ICommand {
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
     @Override
-    public void execute() {
+    public String execute() {
         PathChecker pathChecker = new PathChecker(this.dir);
         if(!pathChecker.isValid()){
             //TODO: Ошибка в случаи не валидного пути
@@ -40,12 +41,14 @@ public class ListCommand implements ICommand {
             //TODO: Ошибка если передан файл
         }
         try {
-            client.sendLine(response + "\n" + new Code250().getAll());
-            this.log = "ListCommand execute";
+            client.sendLineToDataSocket(response);
         } catch (IOException e) {
             e.printStackTrace();
             //TODO: Ошибка при отправлении сообщения
         }
+        this.log = "ListCommand execute";
+        return String.format(new Code150().getAll(),"");
+
     }
 
     @Override

@@ -22,8 +22,7 @@ public class PortCommand implements ICommand {
 
 
     @Override
-    public void execute() {
-        try {
+    public String execute() {
             Pattern pat = Pattern.compile("[0-9]+(?:\\.[0-9]+){3}");
             Matcher matcher = pat.matcher(address);
             String host = null;
@@ -42,13 +41,13 @@ public class PortCommand implements ICommand {
                 //TODO: ошибка в случае, если в строке нет порта
             }
 
+        try {
             client.openDataSocket(host, port);
-            client.sendLine(new Code200().getAll());
-            this.log = "PortCommand execute";
         } catch (IOException e) {
-            // TODO: обработать ошибку в случае не удачи отправки сообщения клиенту
-            e.printStackTrace();
+            //TODO: ошибка если не удалось открыть сокет данных
         }
+        this.log = "PortCommand execute";
+            return new Code200().getAll();
     }
 
     @Override

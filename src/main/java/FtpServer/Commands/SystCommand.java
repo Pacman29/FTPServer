@@ -19,15 +19,10 @@ public class SystCommand implements ICommand {
 
 
     @Override
-    public void execute() {
-        try {
-            String response = new Code215().getAll();
-            client.sendLine(response);
-            this.log = "SystCommand execute";
-        } catch (IOException e) {
-            // TODO: обработать ошибку в случае не удачи отправки сообщения клиенту
-            e.printStackTrace();
-        }
+    public String execute() {
+        String response = new Code215().getAll();
+        this.log = "SystCommand execute";
+        return response;
     }
 
     @Override

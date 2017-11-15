@@ -21,14 +21,11 @@ public class PassCommand implements ICommand {
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
     @Override
-    public void execute() {
-        try {
-            client.sendLine(new Code230().getAll());
-            this.log = "PassCommand execute";
-        } catch (IOException e) {
-            // TODO: обработать ошибку в случае не удачи отправки сообщения клиенту
-            e.printStackTrace();
-        }
+    public String execute() {
+        //TODO : сделать авторизацию
+        this.log = "PassCommand execute";
+        return new Code230().getAll();
+
     }
 
     @Override

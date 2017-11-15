@@ -23,14 +23,10 @@ public class UserCommand implements ICommand {
     }
 
     @Override
-    public void execute() {
-        try {
-            client.sendLine(new Code331().getAll());
-            this.log = "UserCommand execute";
-        } catch (IOException e) {
-            // TODO: обработать ошибку в случае не удачи отправки сообщения клиенту
-            e.printStackTrace();
-        }
+    public String execute() {
+        this.log = "UserCommand execute";
+        return new Code331().getAll();
+
     }
 
     @Override

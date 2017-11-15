@@ -1,5 +1,7 @@
 package FtpServer.Commands;
 
+import FtpServer.Codes.Code250;
+import FtpServer.Codes.Code501;
 import FtpServer.IClient;
 import FtpServer.Modules.PathChecker;
 
@@ -24,12 +26,26 @@ public class CwdCommand implements ICommand {
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
     @Override
-    public void execute() {
-        PathChecker pathChecker = new PathChecker(this.dir);
-        if (!pathChecker.isValid()) {
-            //TODO: Ошибка в случаи не валидного пути
-        }
+    public String execute() {
+        String reqDir = this.dir;
+        if(this.dir.equals("..")){
+            String newDir = client.getUserWorkingDirectory();
+            newDir = newDir.substring(0,newDir.lastIndexOf("/"));
+            if(client.getUserWorkingDirectory().contains(newDir)){
+                // TODO : переход в закрытые директории
+                return new Code501().getAll();
+            } else {
+                return new Code250().getAll();
+            }
 
+        } else {
+            PathChecker pathChecker = new PathChecker(this.dir);
+            if (!pathChecker.isValid()) {
+                //TODO: Ошибка в случаи не валидного пути
+            }
+            client.setUserWorkingDirectory(client.getUserWorkingDirectory()+reqDir);
+            return new Code250().getAll();
+        }
     }
 
     @Override

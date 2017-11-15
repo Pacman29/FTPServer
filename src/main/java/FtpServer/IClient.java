@@ -1,6 +1,6 @@
 package FtpServer;
 
-import FtpServer.Modules.FileSenderFabric;
+import FtpServer.Modules.DataConnection;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -28,7 +28,13 @@ public interface IClient {
 
     boolean sendFile(File file);
 
-    public FileSenderFabric.SocketType getSocketType();
+    boolean saveFile(File file);
 
-    public void setSocketType(FileSenderFabric.SocketType socketType);
+    public DataConnection.SocketType getSocketType();
+
+    public void setSocketType(DataConnection.SocketType socketType);
+
+    public String getUserRootDirectory();
+
+    void sendLineToDataSocket(String line) throws IOException;
 }

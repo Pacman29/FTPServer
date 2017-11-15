@@ -19,15 +19,9 @@ public class PwdCommand implements ICommand {
 
 
     @Override
-    public void execute() {
-        try {
-            String response = String.format(new Code257().getAll(),client.getUserWorkingDirectory());
-            client.sendLine(response);
-            this.log = "PwdCommand execute";
-        } catch (IOException e) {
-            // TODO: обработать ошибку в случае не удачи отправки сообщения клиенту
-            e.printStackTrace();
-        }
+    public String execute() {
+        this.log = "PwdCommand execute";
+        return String.format(new Code257().getAll(),client.getUserWorkingDirectory());
     }
 
     @Override

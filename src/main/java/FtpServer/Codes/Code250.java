@@ -8,6 +8,6 @@ public class Code250 extends BaseCode {
 
     @Override
     public String discription() {
-        return "Requested file action okay, completed.";
+        return "dir changed";
     }
 }
